@@ -3,7 +3,7 @@ from django .http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
-
+from .models import Belongs
 def index(request):
     return render(request,'NGO/index.html')
 
@@ -28,6 +28,8 @@ def signup(request):
             return redirect('signup')
         myuser=User.objects.create_user(username,email,password)
         myuser.city=city
+        belong = Belongs(user = myuser,is_ngo =  True)
+        belong.save()
         myuser.save()
         
         messages.success(request,"Your NGO account has been successfully created")
@@ -52,9 +54,13 @@ def loginpage(request):
         loginpassword=request.POST.get('loginpassword')
         user=authenticate(username=loginusername,password=loginpassword)
         if user is not None:
-            login(request,user)
-            messages.success(request,"Successfully Logged in")
-            return render(request,'NGO/loginpage.html')
+            if Belongs.objects.get(user = user).is_ngo:
+                login(request,user)
+                messages.success(request,"Successfully Logged in")
+                return render(request,'NGO/loginpage.html')
+            else:
+                messages.error(request,"Wrong credentials,Please try again !")
+                return render(request,'NGO/login.html')
         else:
             messages.error(request,"Wrong credentials,Please try again !")
             return render(request,'NGO/login.html')
