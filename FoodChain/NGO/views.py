@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django .http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
+from .forms import Registerdetail
 from django.contrib.auth import authenticate,login,logout
 from .models import Belongs
 def index(request):
@@ -10,33 +11,38 @@ def index(request):
 def signup(request):
     if request.method=="POST":
         username=request.POST.get('name')
-        city=request.POST.get('city')
         email=request.POST.get('email')
         password=request.POST.get('password')
         password1=request.POST.get('password1')
         if User.objects.filter(username=username).exists():
             messages.error(request,"Username already exists try with a new one !")
-            return redirect('signup')
+            return redirect('/NGO/signup')
         if(len(username)<2 or len(username)>20):
             messages.error(request,"Username doesnt match the requirements")
-            return redirect('signup')
+            return redirect('/NGO/signup')
         if not username.isalnum():
             messages.error(request,"Username must be alphanumeric")
-            return redirect('signup')
+            return redirect('/NGO/signup')
         if(password!=password1):
             messages.error(request,"Both passwords dont match")
-            return redirect('signup')
+            return redirect('/NGO/signup')
         myuser=User.objects.create_user(username,email,password)
-        myuser.city=city
         belong = Belongs(user = myuser,is_ngo =  True)
         belong.save()
         myuser.save()
+        form= Registerdetail(request.POST ,request.FILES)
+        if form.is_valid():
+                object = form.save(commit=False)
+                object.user = myuser
+                object.save()
+
         
         messages.success(request,"Your NGO account has been successfully created")
         return redirect("/NGO")
         
     else:
-        return render(request,'NGO/signup.html')
+        form = Registerdetail()
+        return render(request,'NGO/signup.html',{"form":form})
 
 def login_u(request):
     return render(request,'NGO/login.html')

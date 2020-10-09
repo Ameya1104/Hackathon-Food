@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from NGO.models import Belongs
+from NGO.forms import Registerdetail
+
+
 
 def index(request):
     return render(request,'Donate/index.html')
@@ -11,7 +14,6 @@ def index(request):
 def signup(request):
     if request.method=="POST":
         username=request.POST.get('name')
-        city=request.POST.get('city')
         email=request.POST.get('email')
         password=request.POST.get('password')
         password1=request.POST.get('password1')
@@ -28,16 +30,21 @@ def signup(request):
             messages.error(request,"Both passwords dont match")
             return redirect('signup')
         myuser=User.objects.create_user(username,email,password)
-        myuser.city=city
         belong = Belongs(user=myuser,is_donor =  True)
         belong.save()
         myuser.save()
+        form= Registerdetail(request.POST ,request.FILES)
+        if form.is_valid():
+                object = form.save(commit=False)
+                object.user = myuser
+                object.save()
         
         messages.success(request,"Your account has been successfully created")
         return redirect("/Donate")
         
     else:
-        return render(request,'Donate/signup.html')
+        form = Registerdetail()
+        return render(request,'Donate/signup.html',{"form":form})
 
 def login_u(request):
     return render(request,'Donate/login.html')
