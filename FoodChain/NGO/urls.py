@@ -23,7 +23,7 @@ urlpatterns = [
     path('signup',views.signup,name="signup"),
     path('login',views.login_u,name="login_u"),
     path('logout',views.logout_u,name="logout_u"),
-    path('loginpage',views.loginpage,name="loginpage")
-
+    path('loginpage',views.loginpage,name="loginpage"),
+    path('availability',views.availability,name="availability")
     
 ]

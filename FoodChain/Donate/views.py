@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from NGO.models import Belongs
-from NGO.forms import Registerdetail
+from NGO.forms import Registerdetail,Cities,otherDetails,Measurement,foodAvbl
 
 
 
@@ -58,6 +58,7 @@ def logout_u(request):
 
 def loginpage(request):
     if request.method=="POST":
+        
         loginusername=request.POST.get('loginusername')
         loginpassword=request.POST.get('loginpassword')
         user=authenticate(username=loginusername,password=loginpassword)

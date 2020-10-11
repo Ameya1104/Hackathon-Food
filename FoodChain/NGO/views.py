@@ -2,9 +2,11 @@ from django.shortcuts import render,redirect
 from django .http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import Registerdetail
+from bootstrap_datepicker_plus import DateTimePickerInput 
+from .forms import Registerdetail,Food
+from django.contrib.auth.decorators import user_passes_test,login_required
 from django.contrib.auth import authenticate,login,logout
-from .models import Belongs
+from .models import Belongs,foodAvbl,otherDetails
 def index(request):
     return render(request,'NGO/index.html')
 
@@ -63,7 +65,8 @@ def loginpage(request):
             if Belongs.objects.get(user = user).is_ngo:
                 login(request,user)
                 messages.success(request,"Successfully Logged in")
-                return render(request,'NGO/loginpage.html')
+                form = Food()
+                return render(request,'NGO/loginpage.html',{"form":form})
             else:
                 messages.error(request,"Wrong credentials,Please try again !")
                 return render(request,'NGO/login.html')
@@ -73,3 +76,25 @@ def loginpage(request):
     else:
         messages.success(request,"You need to login to access this")
         return render(request,'NGO/login.html')
+def check_user(user):
+	return Belongs.objects.get(user = user).is_ngo
+
+@login_required
+def availability(request):
+    m=otherDetails.objects.get(user=request.user)
+    if request.method=="POST":
+        form= Food(request.POST ,request.FILES)
+        print(m.city)
+        if form.is_valid():
+                object = form.save(commit=False)
+                object.user = request.user
+                object.city=m.city
+                object.save()
+                return redirect("/NGO/loginpage")
+        else:
+            return redirect("/NGO/loginpage")
+    else:
+        return redirect("/NGO/loginpage")
+
+
+        

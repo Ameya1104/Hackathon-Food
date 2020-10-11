@@ -23,5 +23,11 @@
     {% endif %}
 <h1>SUCCESSFULLL !!</h1>
 <a href="/NGO/logout"><button>Logout</button></a>{% csrf_token %}
+<p>Hi</p>
+<form action="/NGO/availability" method="post">{% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
 </body>
 </html>
