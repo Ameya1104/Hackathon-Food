@@ -23,5 +23,18 @@
     {% endif %}
 <h1>SUCCESSFULLL !!</h1>
 <a href="/Donate/logout"><button>Logout</button></a>{% csrf_token %}
+{% for i in j %}
+<div class="card" style="width: 18rem;">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{i.user}}</li>
+    <li class="list-group-item">{{i.measurement}}--{{i.quantity}}</li>
+    <li class="list-group-item">{{i.city}}</li>
+    <li class="list-group-item">{{i.pickup_address}}</li>
+  </ul>
+</div>
+<br>
+<br>  
+
+{% endfor %}
 </body>
 </html>

@@ -3,8 +3,8 @@ from django .http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
-from NGO.models import Belongs
-from NGO.forms import Registerdetail,Cities,otherDetails,Measurement,foodAvbl
+from NGO.models import Belongs,foodAvbl,otherDetails,Cities
+from NGO.forms import Registerdetail,otherDetails,foodAvbl
 
 
 
@@ -58,15 +58,20 @@ def logout_u(request):
 
 def loginpage(request):
     if request.method=="POST":
-        
+        #s=foodAvbl.objects.get(city=request.user.city)
         loginusername=request.POST.get('loginusername')
         loginpassword=request.POST.get('loginpassword')
         user=authenticate(username=loginusername,password=loginpassword)
         if user is not None:
             if Belongs.objects.get(user = user).is_donor:
                 login(request,user)
+                details=otherDetails.objects.filter(user=request.user).values_list('city')
+                for d in details:
+                    s=Cities.objects.get(pk=d[0])
+                j=foodAvbl.objects.filter(city=s)
+                parameter={'j':j}
                 messages.success(request,"Successfully Logged in")
-                return render(request,'Donate/loginpage.html')
+                return render(request,'Donate/loginpage.html',parameter)
             else:
                 messages.error(request,"Wrong credentials,Please try again !")
                 return render(request,'Donate/login.html')
