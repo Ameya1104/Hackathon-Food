@@ -5,6 +5,9 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from NGO.models import Belongs,foodAvbl,otherDetails,Cities
 from NGO.forms import Registerdetail,otherDetails,foodAvbl
+from .forms import FoodRequest
+from .models import FoodReq
+
 
 
 
@@ -82,3 +85,41 @@ def loginpage(request):
     else:
         messages.success(request,"You need to login to access this")
         return render(request,'Donate/login.html')
+
+def displaypage(request,id):
+    if(request.method=="POST"):
+        form=FoodRequest()
+        m=id
+        y=foodAvbl.objects.filter(id=id).values_list("quantity")
+        h=foodAvbl.objects.get(id=id)
+        form= FoodRequest(request.POST ,request.FILES)
+        if(int(form['quantity_required'].value())>int(y[0][0])):
+            print("HIIIIIIIIIIIIIIIIII")
+            messages.error(request,"Cant be greater than available food")
+            form = FoodRequest()
+            y=foodAvbl.objects.filter(id=id)
+            return render(request,'Donate/thankyou.html',{'form':form,'y':y})
+        elif(int(form['quantity_required'].value())<int(y[0][0])):
+            if form.is_valid():
+                object = form.save(commit=False)
+                object.user = request.user
+                object.save()
+                object.foodtakenfrom=m
+                object.save()
+                u=int(y[0][0])-int(form['quantity_required'].value())
+                print(u)
+                h.quantity=u
+                h.save()
+                messages.success(request,"Response Noted")
+                return redirect ("/Donate/loginpage")
+        
+        else:
+            messages.success(request,"Form invalid")
+            return redirect("/Donate/loginpage")
+        
+    else:
+        form = FoodRequest()
+        y=foodAvbl.objects.filter(id=id)
+        print(y)
+        return render(request,'Donate/thankyou.html',{'form':form,'y':y})
+        

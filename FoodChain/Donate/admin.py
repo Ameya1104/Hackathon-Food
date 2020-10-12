@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import FoodReq
 
-# Register your models here.
+admin.site.register(FoodReq)
+
