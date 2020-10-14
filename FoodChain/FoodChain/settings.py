@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'NGO',
     'Donate',
-    'frontpage'
+    'frontpage',
+    'rest_api',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
