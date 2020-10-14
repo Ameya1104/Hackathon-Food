@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'NGO',
-    'Donate'
+    'Donate',
+    'frontpage'
 ]
 
 MIDDLEWARE = [
@@ -81,6 +82,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+SETTINGS_PATH = os.path.realpath(os.path.dirname(__file__))
+
 
 
 # Password validation
