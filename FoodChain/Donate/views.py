@@ -7,9 +7,17 @@ from NGO.models import Belongs,foodAvbl,otherDetails,Cities
 from NGO.forms import Registerdetail,otherDetails,foodAvbl
 from .forms import FoodRequest
 from .models import FoodReq
+from django.core.mail import send_mail
 
 
-
+def Email(username,email):
+    send_mail(
+        subject = "alert",
+        message = f'thanks {username} for joining us. Your account has been successfully created login for more details',
+        from_email = "samvegvshah13@gmail.com",
+        recipient_list = [email],
+        fail_silently = False,
+    )
 
 def index(request):
     return render(request,'Donate/index.html')
@@ -36,6 +44,7 @@ def signup(request):
         belong = Belongs(user=myuser,is_donor =  True)
         belong.save()
         myuser.save()
+        Email(username,email)
         form= Registerdetail(request.POST ,request.FILES)
         if form.is_valid():
                 object = form.save(commit=False)
@@ -43,7 +52,7 @@ def signup(request):
                 object.save()
         
         messages.success(request,"Your account has been successfully created")
-        return redirect("/Donate")
+        return redirect("/Donate/login")
         
     else:
         form = Registerdetail()
@@ -82,9 +91,17 @@ def loginpage(request):
         else:
             messages.error(request,"Wrong credentials,Please try again !")
             return render(request,'Donate/login.html')
+    if request.user.is_authenticated:
+        details=otherDetails.objects.filter(user=request.user).values_list('city')
+        for d in details:
+            s=Cities.objects.get(pk=d[0])
+        j=foodAvbl.objects.filter(city=s)
+        parameter={'j':j}
+        messages.success(request,"Successfully Logged in")
+        return render(request,'Donate/loginpage.html',parameter)
     else:
-        messages.success(request,"You need to login to access this")
-        return render(request,'Donate/login.html')
+        messages.success(request, "You need to login to access this")
+        return render(request, 'Donate/login.html')
 
 def displaypage(request,id):
     if(request.method=="POST"):
@@ -107,19 +124,21 @@ def displaypage(request,id):
                 object.foodtakenfrom=m
                 object.save()
                 u=int(y[0][0])-int(form['quantity_required'].value())
-                print(u)
+                print(u)    
                 h.quantity=u
                 h.save()
                 messages.success(request,"Response Noted")
-                return redirect ("/Donate/loginpage")
+                return redirect ("/Donate/loginpage/<int:m>/status")
         
         else:
             messages.success(request,"Form invalid")
-            return redirect("/Donate/loginpage")
+            return redirect("/Donate/loginpage/<int:m>/status")
         
     else:
         form = FoodRequest()
         y=foodAvbl.objects.filter(id=id)
-        print(y)
+        print(y)    
         return render(request,'Donate/thankyou.html',{'form':form,'y':y})
-        
+
+def status(request,id):
+    return render(request,"Donate/status.html")

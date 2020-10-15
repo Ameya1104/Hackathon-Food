@@ -7,10 +7,20 @@ from .forms import Registerdetail, Food
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib.auth import authenticate, login, logout
 from .models import Belongs, foodAvbl, otherDetails
+from django.core.mail import send_mail
 
 
 def index(request):
     return render(request, 'NGO/index.html')
+
+def Email(username,email):
+    send_mail(
+        subject = "alert",
+        message = f'thanks {username} for joining us. Your account has been successfully created login for more details',
+        from_email = "samvegvshah13@gmail.com",
+        recipient_list = [email],
+        fail_silently = False,
+    )
 
 
 def signup(request):
@@ -35,6 +45,7 @@ def signup(request):
         belong = Belongs(user=myuser, is_ngo=True)
         belong.save()
         myuser.save()
+        Email(username,email)
         form = Registerdetail(request.POST, request.FILES)
         if form.is_valid():
             object = form.save(commit=False)
@@ -42,7 +53,7 @@ def signup(request):
             object.save()
 
         messages.success(request, "Your NGO account has been successfully created")
-        return redirect("/NGO")
+        return redirect("/NGO/login")
 
     else:
         form = Registerdetail()
@@ -76,9 +87,14 @@ def loginpage(request):
         else:
             messages.error(request, "Wrong credentials,Please try again !")
             return render(request, 'NGO/login.html')
+    if request.user.is_authenticated:
+        print(request.user)
+        form = Food()
+        return render(request, 'NGO/loginpage.html', {"form": form})
     else:
         messages.success(request, "You need to login to access this")
         return render(request, 'NGO/login.html')
+        
 
 
 def check_user(user):
@@ -96,7 +112,9 @@ def availability(request):
             object.user = request.user
             object.city = m.city
             object.save()
+            messages.success(request, "Thankyou for the food alert")
             return redirect("/NGO/loginpage")
+            
         else:
             return redirect("/NGO/loginpage")
     else:
