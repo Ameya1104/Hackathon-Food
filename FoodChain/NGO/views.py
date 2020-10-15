@@ -7,10 +7,20 @@ from .forms import Registerdetail, Food
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib.auth import authenticate, login, logout
 from .models import Belongs, foodAvbl, otherDetails
+from django.core.mail import send_mail
 
 
 def index(request):
     return render(request, 'NGO/index.html')
+
+def Email(username,email):
+    send_mail(
+        subject = "alert",
+        message = f'thanks {username} for joining us. Your account has been successfully created login for more details',
+        from_email = "samvegvshah13@gmail.com",
+        recipient_list = [email],
+        fail_silently = False,
+    )
 
 
 def signup(request):
@@ -35,6 +45,7 @@ def signup(request):
         belong = Belongs(user=myuser, is_ngo=True)
         belong.save()
         myuser.save()
+        Email(username,email)
         form = Registerdetail(request.POST, request.FILES)
         if form.is_valid():
             object = form.save(commit=False)
