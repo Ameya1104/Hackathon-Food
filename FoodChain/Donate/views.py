@@ -43,7 +43,7 @@ def signup(request):
                 object.save()
         
         messages.success(request,"Your account has been successfully created")
-        return redirect("/Donate")
+        return redirect("/Donate/login")
         
     else:
         form = Registerdetail()

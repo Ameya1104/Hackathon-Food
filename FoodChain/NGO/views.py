@@ -42,7 +42,7 @@ def signup(request):
             object.save()
 
         messages.success(request, "Your NGO account has been successfully created")
-        return redirect("/NGO")
+        return redirect("/NGO/login")
 
     else:
         form = Registerdetail()
