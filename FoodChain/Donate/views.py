@@ -14,7 +14,7 @@ def Email(username,email):
     send_mail(
         subject = "alert",
         message = f'thanks {username} for joining us. Your account has been successfully created login for more details',
-        from_email = "samvegvshah13@gmail.com",
+        from_email = "mihir.nikam1@gmail.com",
         recipient_list = [email],
         fail_silently = False,
     )
@@ -104,6 +104,12 @@ def loginpage(request):
         return render(request, 'Donate/login.html')
 
 def displaypage(request,id):
+    form = FoodRequest()
+    y=foodAvbl.objects.filter(id=id)
+    print(y)    
+    return render(request,'Donate/thankyou.html',{'form':form,'y':y})
+
+def status(request,id):
     if(request.method=="POST"):
         form=FoodRequest()
         m=id
@@ -128,17 +134,9 @@ def displaypage(request,id):
                 h.quantity=u
                 h.save()
                 messages.success(request,"Response Noted")
-                return redirect ("/Donate/loginpage/<int:m>/status")
-        
+                y=foodAvbl.objects.filter(id=id)  
+                return render(request,"Donate/status.html",{'y':y})   
         else:
             messages.success(request,"Form invalid")
-            return redirect("/Donate/loginpage/<int:m>/status")
-        
-    else:
-        form = FoodRequest()
-        y=foodAvbl.objects.filter(id=id)
-        print(y)    
-        return render(request,'Donate/thankyou.html',{'form':form,'y':y})
-
-def status(request,id):
+            return render(request,"/Donate/thankyou.html")
     return render(request,"Donate/status.html")

@@ -18,8 +18,14 @@ $(window).on("load", function () {
     $(".loader").fadeOut(800);
     $('.side-menu').removeClass('opacity-0');
 });
-
-
+//hide message after 5secs
+$(document).ready(function(){
+    window.setTimeout(function() {
+      $(".alert").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove();
+      });
+    }, 5000);
+  }); 
 jQuery($=> {
     "use strict";
     let $window = $(window);

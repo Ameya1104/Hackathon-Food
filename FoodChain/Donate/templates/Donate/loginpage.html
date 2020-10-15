@@ -7,7 +7,6 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
     <title>NGO</title>
   </head>
   <body>
@@ -17,10 +16,9 @@
         {% for message in messages %}
         <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
-    </ul>
+      </ul>
     </div>
-        
-    {% endif %}
+{% endif %}
 <h1>SUCCESSFULLL !!</h1>
 <a href="/Donate/logout"><button>Logout</button></a>{% csrf_token %}
 {% for i in j %}
@@ -39,5 +37,14 @@
 <br>  
 
 {% endfor %}
+<script>
+  $(document).ready(function(){
+    window.setTimeout(function() {
+      $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove();
+      });
+    }, 5000);
+  }); 
+</script>
 </body>
 </html>
