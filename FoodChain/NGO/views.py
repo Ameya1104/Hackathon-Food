@@ -76,9 +76,14 @@ def loginpage(request):
         else:
             messages.error(request, "Wrong credentials,Please try again !")
             return render(request, 'NGO/login.html')
+    if request.user.is_authenticated:
+        print(request.user)
+        form = Food()
+        return render(request, 'NGO/loginpage.html', {"form": form})
     else:
         messages.success(request, "You need to login to access this")
         return render(request, 'NGO/login.html')
+        
 
 
 def check_user(user):
@@ -96,7 +101,9 @@ def availability(request):
             object.user = request.user
             object.city = m.city
             object.save()
+            messages.success(request, "Thankyou for the food alert")
             return redirect("/NGO/loginpage")
+            
         else:
             return redirect("/NGO/loginpage")
     else:

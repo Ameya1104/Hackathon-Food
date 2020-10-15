@@ -82,9 +82,17 @@ def loginpage(request):
         else:
             messages.error(request,"Wrong credentials,Please try again !")
             return render(request,'Donate/login.html')
+    if request.user.is_authenticated:
+        details=otherDetails.objects.filter(user=request.user).values_list('city')
+        for d in details:
+            s=Cities.objects.get(pk=d[0])
+        j=foodAvbl.objects.filter(city=s)
+        parameter={'j':j}
+        messages.success(request,"Successfully Logged in")
+        return render(request,'Donate/loginpage.html',parameter)
     else:
-        messages.success(request,"You need to login to access this")
-        return render(request,'Donate/login.html')
+        messages.success(request, "You need to login to access this")
+        return render(request, 'Donate/login.html')
 
 def displaypage(request,id):
     if(request.method=="POST"):
