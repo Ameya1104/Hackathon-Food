@@ -1,18 +1,75 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<!-- Mirrored from trax.acrothemes.com/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 15 Oct 2020 04:14:38 GMT -->
+<head>
+  {% load static %}
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login</title>
+    <link href="images/favicon.ico" rel="icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/all.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/animate.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/jquery.fancybox.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/tooltipster.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/revolution/navigation.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/revolution/settings.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/style.css' %}">
+</head>
+<body>
+<!--PreLoader-->
+<div class="loader">
+    <div class="loader-inner">
+        <div class="cssload-loader"></div>
+    </div>
+</div>
+<!--PreLoader Ends-->
+<!-- header -->
+<header class="site-header">
+    <nav class="navbar navbar-expand-lg padding-nav static-nav">
+        <div class="container">
+              <img class="slide-bg " style="height:40px; width:200px;" src="{% static 'frontpage/images/Logonav.jpeg' %}"  alt="home banner">
+            <div class="collapse navbar-collapse">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <title>NGO</title>
-  </head>
-  <h1>NGO</h1>
-  <body>
-    {% if messages %}
+    <!-- End side menu -->
+</header>
+<!-- header -->
+<!--Page Header-->
+<section class="position-relative page-header sign-in-header parallax section-nav-smooth">
+    <div class="overlay overlay-dark opacity-7 z-index-1"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="page-titles whitecolor text-center padding_top padding_bottom">
+                    <h2 class="font-xlight">Sign Into</h2>
+                    <h2 class="font-bold">Your Account To</h2>
+                    <h2 class="font-xlight">To</h2>
+                    <h3 class="font-light pt-2">Help The Needy</h3>
+                </div>
+            </div>
+        </div>
+        <div class="gradient-bg title-wrap">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 whitecolor">
+                    <h3 class="float-left">Sign In</h3>
+                    <ul class="breadcrumb top10 bottom10 float-right">
+                        <li class="breadcrumb-item hover-light"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item hover-light">Sign-in</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Page Header ends -->
+<!-- sign-in -->
+<section id="sign-in" class="bglight position-relative padding">
+    <div class="container">
+      {% if messages %}
     <div id="message"  class="alert-dismissible fade show alert alert-success" role="alert">
       <ul  id="inner-message" class="messages">
         {% for message in messages %}
@@ -22,23 +79,146 @@
     </div>
         
     {% endif %}
-    <form  action="/Donate/loginpage" method="POST">{% csrf_token %}
-      <div class="form-row">
-        <div class="col">
-          <input type="text" name="loginusername" class="form-control" placeholder="Name Of Organisation" required>
-        </div>
-      </div>      
-      <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" name="loginpassword" placeholder="Password" required>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+        <div class="row">
+            <div class="col-md-12 text-center wow fadeIn" data-wow-delay="300ms">
+                <h2 class="heading bottom30 darkcolor font-light2"><span class="font-normal">Sign</span> In
+                    <span class="divider-center"></span>
+                </h2>
+                <div class="col-md-8 offset-md-2 heading_space">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A dolores explicabo laudantium, omnis provident quam reiciendis voluptatum?</p>
+                </div>
+            </div>
+            <div class="col-lg-6 pr-lg-0 col-md-12 d-none d-lg-flex">
+                <div class=" image login-image h-100">
+                  <img style="height:100%;width:100%" src="{% static 'frontpage/images/banner.jpeg' %}"  alt="home banner">
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
+                </div>
+            </div>
+            <div class="col-lg-6 pl-lg-0 col-md-12 whitebox">
+                <div class="widget logincontainer">
+                    <h3 class="darkcolor bottom30 text-center text-lg-left">Sign In </h3>
+                    <form  action="/Donate/loginpage" method="POST">{% csrf_token %}
+                      <div class="form-row">
+                        <div class="col">
+                          <input type="text" name="loginusername" class="form-control" placeholder="Name Of Organisation" required>
+                        </div>
+                      </div>      
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" name="loginpassword" placeholder="Password" required>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                      <div class="col-sm-12">
+                        <p class="top30 mb-0"> Don't have an account? &nbsp;<a href="signup" class="defaultcolor">Sign Up Now</a> </p>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- sign-in ends -->
+<!-- Contact US -->
+<!-- Contact US ends -->
+<!--Site Footer Here-->
+<footer id="site-footer" class=" bgdark padding_top">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="footer_panel padding_bottom_half bottom20">
+                  <a href="#" class="footer_logo bottom25">  <img src="{% static 'frontpage/images/logo.png' %}"  alt="home banner">
+                    <div class="d-table w-100 address-item whitecolor bottom25">
+                        <p class="d-table-cell align-middle bottom0">
+                            +01 - 123 - 4567 <a class="d-block" href="mailto:web@support.com">web@support.com</a>
+                        </p>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="footer_panel padding_bottom_half bottom20">
+                    <h3 class="whitecolor bottom25">Our Services</h3>
+                    <ul class="links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/">About Us</a></li>
+                        <li><a href="signup">Register</a></li>
+                        <li><a href="/">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="footer_panel padding_bottom_half bottom20">
+                    <h3 class="whitecolor bottom25">Latest News</h3>
+                    <ul class="latest_news whitecolor">
+                        <li> <a href="#.">Aenean tristique justo et... </a> <span class="date defaultcolor">15 March 2019</span> </li>
+                        <li> <a href="#.">Phasellus dapibus dictum augue... </a> <span class="date defaultcolor">15 March 2019</span> </li>
+                        <li> <a href="#.">Mauris blandit vitae. Praesent non... </a> <span class="date defaultcolor">15 March 2019</span> </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="footer_panel padding_bottom_half bottom20">
+                    <h3 class="whitecolor bottom25">Business hours</h3>
+                    <p class="whitecolor bottom25">Our support available to help you 24 hours a day, seven days week</p>
+                    <ul class="hours_links whitecolor">
+                        <li><span>Monday-Saturday:</span> <span>8.00-18.00</span></li>
+                        <li><span>Friday:</span> <span>09:00-21:00</span></li>
+                        <li><span>Sunday:</span> <span>09:00-20:00</span></li>
+                        <li><span>Calendar Events:</span> <span>24-Hour Shift</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--Footer ends-->
+<!--copyright-->
+<div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center wow fadeIn animated" data-wow-delay="300ms">
+                <p class="m-0 py-3">Copyright © <span id="year1"></span> <a href="javascript:void(0)" class="hover-default">MARS</a>. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{% static 'NGO/js/jquery-3.4.1.min.js' %}"></script>
+<!--Bootstrap Core-->
+<script src="{% static 'NGO/js/propper.min.js' %}"></script>
+<script src="{% static 'NGO/js/bootstrap.min.js' %}"></script>
+<!--to view items on reach-->
+<script src="{% static 'NGO/js/jquery.appear.js' %}"></script>
+<!--Owl Slider-->
+<script src="{% static 'NGO/js/owl.carousel.min.js' %}"></script>
+<!--number counters-->
+<script src="{% static 'NGO/js/jquery-countTo.js'  %}"></script>
+<!--Parallax Background-->
+<script src="{% static 'NGO/js/parallaxie.js'  %}"></script>
+<!--Cubefolio Gallery-->
+<script src="{% static 'NGO/js/jquery.cubeportfolio.min.js' %}"></script>
+<!--Fancybox js-->
+<script src="{% static 'NGO/js/jquery.fancybox.min.js' %}"></script>
+<!--tooltip js-->
+<script src="{% static 'NGO/js/tooltipster.min.js' %}"></script>
+<!--wow js-->
+<script src="{% static 'NGO/js/wow.js' %}"></script>
+<!--Revolution SLider-->
+<script src="{% static 'NGO/js/revolution/jquery.themepunch.tools.min.js' %}"></script>
+<script src="{% static 'NGO/js/revolution/jquery.themepunch.revolution.min.js' %}"></script>
+<!-- SLIDER REVOLUTION 5.0 EXTENSIONS -->
+<script src="{% static 'NGO/js/revolution/extensions/revolution.extension.actions.min.js' %}"></script>
+<script src="{% static 'NGO/js/extensions/revolution.extension.carousel.min.js' %}"></script>
+<script src="{% static 'NGO/js/revolution/extensions/revolution.extension.kenburn.min.js'%}"></script>
+<script src="{% static 'NGO/js/revolution/extensions/revolution.extension.layeranimation.min.js' %} %}"></script>
+<script src="{% static 'NGO/js/revolution/extensions/revolution.extension.migration.min.js' %}"></script>
+<script src="{% static 'NGO/js/revolution/extensions/revolution.extension.navigation.min.js' %}"></script>
+<script src="{% static 'NGO/js/revolution/extensions/revolution.extension.parallax.min.js' %}"></script>
+<script src="{% static 'NGO/js/revolution/extensions/revolution.extension.slideanims.min.js' %}"></script>
+<script src="{% static 'NGO/js/revolution/extensions/revolution.extension.video.min.js' %}"></script>
+<!--custom functions and script-->
+<script src="{% static 'NGO/js/functions.js' %}"></script>
+</body>
+
+<!-- Mirrored from trax.acrothemes.com/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 15 Oct 2020 04:15:19 GMT -->
 </html>
