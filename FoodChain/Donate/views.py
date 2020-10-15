@@ -115,19 +115,21 @@ def displaypage(request,id):
                 object.foodtakenfrom=m
                 object.save()
                 u=int(y[0][0])-int(form['quantity_required'].value())
-                print(u)
+                print(u)    
                 h.quantity=u
                 h.save()
                 messages.success(request,"Response Noted")
-                return redirect ("/Donate/loginpage")
+                return redirect ("/Donate/loginpage/<int:m>/status")
         
         else:
             messages.success(request,"Form invalid")
-            return redirect("/Donate/loginpage")
+            return redirect("/Donate/loginpage/<int:m>/status")
         
     else:
         form = FoodRequest()
         y=foodAvbl.objects.filter(id=id)
-        print(y)
+        print(y)    
         return render(request,'Donate/thankyou.html',{'form':form,'y':y})
-        
+
+def status(request,id):
+    return render(request,"Donate/status.html")
