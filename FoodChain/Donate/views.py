@@ -34,7 +34,6 @@ def mailtoo(email,username):
         from_email = "samvegvshah13@gmail.com",
         recipient_list = [email],
         fail_silently = False,
-
     )
 
 def index(request):
@@ -112,6 +111,7 @@ def loginpage(request):
             s=Cities.objects.get(pk=d[0])
         j=foodAvbl.objects.filter(city=s)
         h=orders.objects.all()
+        print(h)
         parameter={'j':j,'h':h}
         messages.success(request,"Successfully Logged in")
         return render(request,'Donate/loginpage.html',parameter)
@@ -125,7 +125,7 @@ def displaypage(request,id):
     print(y)    
     return render(request,'Donate/thankyou.html',{'form':form,'y':y})
 
-def status(request,id):
+def status1(request,id):
     if(request.method=="POST"):
         form=FoodRequest()
         m=id
@@ -155,43 +155,74 @@ def status(request,id):
                 messages.success(request,"Response Noted")
                 y=foodAvbl.objects.filter(id=id)
                 y1=foodAvbl.objects.get(id=id) 
-                print("==============")
-                print(y)
                 parameter={'y':y,'y1':y1}
-                return render(request,"Donate/status.html",parameter)   
+                return render(request,"Donate/status1.html",parameter)   
         else:
             messages.success(request,"Form invalid")
-            return render(request,"/Donate/thankyou.html")
-    return render(request,"Donate/status.html")
+            return render(request,"/Donate/thankyou.html")    
+    return render(request,"Donate/status1.html")
 
-def feedback(request,id):
+# def feedback(request,id):
+#     if(request.method=="POST"):
+#         print("Hi")
+#         print("%%%%%%%%%%")
+#         y=foodAvbl.objects.get(id=id)
+#         email=y.user.email
+#         form= Rate(request.POST ,request.FILES)
+#         if form.is_valid():
+#             object = form.save(commit=False)
+#             quantity= form.instance.fedto
+#             object.user=y.user
+#             object.save()
+#             send(y.user.username,email,quantity)
+#             return HttpResponse("Well Done !")
+#         else:
+#             return HttpResponse("Bad Work")    
+#     else:
+#         form = Rate()
+#         y=foodAvbl.objects.filter(id=id) 
+#         return render(request,"Donate/rate.html",{'form':form,'y':y})
+
+    
+def status2(request,id):
+    y=foodAvbl.objects.filter(id=id)
+    y1=foodAvbl.objects.get(id=id) 
+    parameter={'y':y,'y1':y1}
     if(request.method=="POST"):
-        print("Hi")
-        print("%%%%%%%%%%")
-        y=foodAvbl.objects.get(id=id)
-        email=y.user.email
-        form= Rate(request.POST ,request.FILES)
+        email=y1.user.email
+        username=request.user
+        mailtoo(email,username)        
+        return render(request,"Donate/status2.html",parameter)
+    else:
+        return render(request,"Donate/status2.html",parameter)
+
+def status3(request,id):
+    y=foodAvbl.objects.filter(id=id)
+    y1=foodAvbl.objects.get(id=id) 
+    parameter={'y':y,'y1':y1}
+    if(request.method=="POST"):       
+        return render(request,"Donate/status3.html",parameter)
+    return render(request,"Donate/status3.html",parameter)
+    
+def status4(request,id):
+    y=foodAvbl.objects.filter(id=id)
+    y1=foodAvbl.objects.get(id=id) 
+    parameter={'y':y,'y1':y1}
+    if(request.method=="POST"):
+        email=y1.user.email
+        form = Rate(request.POST ,request.FILES)
         if form.is_valid():
             object = form.save(commit=False)
             quantity= form.instance.fedto
-            object.user=y.user
+            object.user=y1.user
             object.save()
-            send(y.user.username,email,quantity)
-            return HttpResponse("Well Done !")
+            send(y1.user.username,email,quantity)
+            messages.success(request,"You have completed the campaign. GOOD WORK!")
+            return render(request,"Donate/status4.html",parameter)
         else:
-            return HttpResponse("Bad Work")
-
-        
-    
+            messages.success(request,"You couldn't complete the campaign. TRY AGAIN!")
+            return render(request,"Donate/status4.html",parameter)  
     else:
         form = Rate()
         y=foodAvbl.objects.filter(id=id) 
         return render(request,"Donate/rate.html",{'form':form,'y':y})
-
-    
-def confirm(request,id):
-    y=foodAvbl.objects.get(id=id)
-    email=y.user.email
-    username=request.user
-    mailtoo(email,username)
-    return HttpResponse("Email sent")

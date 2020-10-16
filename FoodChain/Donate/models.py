@@ -21,4 +21,6 @@ class orders(models.Model):
     quantity=models.IntegerField(default=0)
     pickup_address = models.TextField(max_length=20)
 
+class 
+
 

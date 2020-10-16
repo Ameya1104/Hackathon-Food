@@ -69,10 +69,10 @@
               <span class="close">&times;</span>
               <p>Address: {{y1.pickup_address}}</p>
               {% for i in y %}
-                <a href="/Donate/Confirmorder/{{i.id}}">
-                    <button>Confirm Pickup?</button>
-                </a>
-                    {% endfor %}  
+                <form action="/Donate/loginpage/{{y.0.id}}/status/2" method="POST">{% csrf_token %}
+                    <button type="submit">Confirm Pickup</button>
+                </form>
+              {% endfor %}  
               
             </div>
           

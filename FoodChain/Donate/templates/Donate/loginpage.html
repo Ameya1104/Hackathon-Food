@@ -23,7 +23,7 @@
 <a href="/Donate/logout"><button>Logout</button></a>{% csrf_token %}
 {% for i in j %}
 <div class="card" style="width: 18rem;">
-  <img style="height:130px;" src="/media/{{i.images}}">
+  <img style="height:130px;" src="{{i.images}}">
   <ul class="list-group list-group-flush">
     <li class="list-group-item">{{i.user}}</li>
     <li class="list-group-item">{{i.measurement}}--{{i.quantity}}</li>

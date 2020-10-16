@@ -1,5 +1,6 @@
 <h1>Hi</h1>
-<form action="/Donate/feedback/{{y.0.id}}" method="POST">{% csrf_token %}
+<form action="" method="POST">
+    {% csrf_token %}
     {{form.as_p}}
     <button type="submit">Submit</button>
 </form>

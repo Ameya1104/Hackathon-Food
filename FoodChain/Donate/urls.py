@@ -24,10 +24,11 @@ urlpatterns = [
     path('',views.index,name="index"),
     path('signup',views.signup,name="signup"),
     path('login',views.login_u,name="login_u"),
-    path('feedback/<int:id>',views.feedback,name="feedback"),
     path('logout',views.logout_u,name="logout_u"),
-    path('Confirmorder/<int:id>',views.confirm,name="confirm"),
     path('loginpage',views.loginpage,name="loginpage"),
     path('loginpage/<int:id>',views.displaypage,name="displaypage"),
-    path('loginpage/<int:id>/status',views.status,name="status")    
-]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+    path('loginpage/<int:id>/status/1',views.status1,name="status1"),
+    path('loginpage/<int:id>/status/2',views.status2,name="status2"),
+    path('loginpage/<int:id>/status/3',views.status3,name="status3"), 
+    path('loginpage/<int:id>/status/4',views.status4,name="status4")    
+]
