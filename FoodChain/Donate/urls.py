@@ -26,6 +26,7 @@ urlpatterns = [
     path('login',views.login_u,name="login_u"),
     path('feedback/<int:id>',views.feedback,name="feedback"),
     path('logout',views.logout_u,name="logout_u"),
+    path('Confirmorder/<int:id>',views.confirm,name="confirm"),
     path('loginpage',views.loginpage,name="loginpage"),
     path('loginpage/<int:id>',views.displaypage,name="displaypage"),
     path('loginpage/<int:id>/status',views.status,name="status")    
