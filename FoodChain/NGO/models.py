@@ -21,7 +21,9 @@ class otherDetails(models.Model):
                                 on_delete=models.CASCADE)
     address = models.TextField(max_length=250, blank=True)
     phonenumber = models.IntegerField(default=9898944)
+    image=models.ImageField(upload_to='NGO/images')
     city = models.ForeignKey(Cities, on_delete=models.CASCADE, null=True)
+
 
     def __str__(self):
         return self.address

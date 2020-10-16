@@ -18,7 +18,7 @@ def Email(username,email):
     send_mail(
         subject = "alert",
         message = f'thanks {username} for joining us. Your account has been successfully created login for more details',
-        from_email = "mihir.nikam1@gmail.com",
+        from_email = "samvegvshah13@gmail.com",
         recipient_list = [email],
         fail_silently = False,
     )

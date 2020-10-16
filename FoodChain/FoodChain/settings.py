@@ -124,9 +124,11 @@ TIME_ZONE = 'Asia/Kolkata'
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_URL='/media/'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'mihir.nikam1@gmail.com'
-EMAIL_HOST_PASSWORD = "type your password here"
+EMAIL_HOST_USER = 'samvegvshah13@gmail.com'
+EMAIL_HOST_PASSWORD = "Bsdn40qt@@"

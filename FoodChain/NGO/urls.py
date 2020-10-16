@@ -16,6 +16,8 @@ Including another URLconf
 from django.urls import path, include
 from . import views
 from django.conf.urls.static import static
+from django.conf import settings
+
 
 urlpatterns = [
     path('', views.index, name="index"),
@@ -25,4 +27,4 @@ urlpatterns = [
     path('loginpage', views.loginpage, name="loginpage"),
     path('availability', views.availability, name="availability")
 
-]
+]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

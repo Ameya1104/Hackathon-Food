@@ -97,7 +97,7 @@
             <div class="col-lg-6 pl-lg-0 col-md-12 whitebox">
                 <div class="widget logincontainer">
                     <h3 class="darkcolor bottom30 text-center text-lg-left">Sign Up </h3>
-                    <form  action="/NGO/signup" method="POST">{% csrf_token %}
+                    <form  action="/NGO/signup" method="POST" enctype="multipart/form-data">{% csrf_token %}
                       <div class="form-row">
                         <div class="col">
                           <input type="text" name="name" class="form-control" placeholder="Name Of Organisation" required>
