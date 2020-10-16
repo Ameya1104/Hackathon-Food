@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate,login,logout
 from NGO.models import Belongs,foodAvbl,otherDetails,Cities
 from NGO.forms import Registerdetail,otherDetails,foodAvbl
 from .forms import FoodRequest,Rate
-from .models import FoodReq,rate
+from .models import FoodReq,rate, orders
 from django.core.mail import send_mail
 
 
@@ -105,7 +105,8 @@ def loginpage(request):
         for d in details:
             s=Cities.objects.get(pk=d[0])
         j=foodAvbl.objects.filter(city=s)
-        parameter={'j':j}
+        h=orders.objects.all()
+        parameter={'j':j,'h':h}
         messages.success(request,"Successfully Logged in")
         return render(request,'Donate/loginpage.html',parameter)
     else:
@@ -132,7 +133,10 @@ def status(request,id):
             y=foodAvbl.objects.filter(id=id)
             return render(request,'Donate/thankyou.html',{'form':form,'y':y})
         elif(int(form['quantity_required'].value())<int(y[0][0])):
-            if form.is_valid():
+            if form.is_valid():    
+                a=orders(O_ID=id,user=h.user,quantity=int(form['quantity_required'].value()),pickup_address=h.pickup_address)
+                a.save()
+                print(a)
                 object = form.save(commit=False)
                 object.user = request.user
                 object.save()

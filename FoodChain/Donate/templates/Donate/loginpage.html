@@ -37,6 +37,15 @@
 <br>  
 
 {% endfor %}
+{% for i in h %}
+<ul>
+  <li>USERNAME : {{i.user}}</li>
+  <li>ID : {{i.O_ID}}</li>
+  <li>Amount of food: {{i.quantity}}</li>
+  <li>Pick Up Address: {{i.pickup_address}}</li>
+</ul>
+{% endfor %}
+
 <script>
   $(document).ready(function(){
     window.setTimeout(function() {
