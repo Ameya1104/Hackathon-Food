@@ -20,7 +20,7 @@ class otherDetails(models.Model):
     user = models.OneToOneField(User, related_name="details", related_query_name="details", null=True, blank=True,
                                 on_delete=models.CASCADE)
     address = models.TextField(max_length=250, blank=True)
-    phonenumber = models.IntegerField(default=9898944)
+    phonenumber = models.IntegerField(default=9898944123)
     image=models.ImageField(upload_to='NGO/images')
     city = models.ForeignKey(Cities, on_delete=models.CASCADE, null=True)
 
@@ -46,6 +46,6 @@ class foodAvbl(models.Model):
     pickup_address = models.TextField(max_length=20)
     created_on=models.DateTimeField(auto_now_add=False , editable=True,null=True)
     edible = models.IntegerField(default=0)
-    
+
     def __str__(self):
         return str(self.user.username)
