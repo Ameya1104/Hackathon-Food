@@ -68,7 +68,12 @@
             <div class="modal-content">
               <span class="close">&times;</span>
               <p>Address: {{y1.pickup_address}}</p>
-              <button>Confirm Pickup?</button>
+              {% for i in y %}
+                <a href="/Donate/Confirmorder/{{i.id}}">
+                    <button>Confirm Pickup?</button>
+                </a>
+                    {% endfor %}  
+              
             </div>
           
           </div>

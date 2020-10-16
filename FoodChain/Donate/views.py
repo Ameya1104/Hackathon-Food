@@ -27,6 +27,15 @@ def send(username,email,quantity):
         fail_silently = False,
 
     )
+def mailtoo(email,username):
+    send_mail(
+        subject = "alert",
+        message = f'NGO {username} will come to collect the food order has been confirmed',
+        from_email = "samvegvshah13@gmail.com",
+        recipient_list = [email],
+        fail_silently = False,
+
+    )
 
 def index(request):
     return render(request,'Donate/index.html')
@@ -183,4 +192,9 @@ def feedback(request,id):
         return render(request,"Donate/rate.html",{'form':form,'y':y})
 
     
- 
+def confirm(request,id):
+    y=foodAvbl.objects.get(id=id)
+    email=y.user.email
+    username=request.user
+    mailtoo(email,username)
+    return HttpResponse("Email sent")
