@@ -90,7 +90,6 @@ def loginpage(request):
                 for d in details:
                     s=Cities.objects.get(pk=d[0])
                 j=foodAvbl.objects.filter(city=s)
-                c=foodAvbl.objects.get(city=s)
                 parameter={'j':j}
                 messages.success(request,"Successfully Logged in")
                 return render(request,'Donate/loginpage.html',parameter)
