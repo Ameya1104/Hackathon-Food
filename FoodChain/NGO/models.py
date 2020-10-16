@@ -45,6 +45,7 @@ class foodAvbl(models.Model):
     city = models.CharField(max_length=100, default="enter")
     pickup_address = models.TextField(max_length=20)
     created_on=models.DateTimeField(auto_now_add=False , editable=True,null=True)
-
+    edible = models.IntegerField(default=0)
+    
     def __str__(self):
         return str(self.user.username)
