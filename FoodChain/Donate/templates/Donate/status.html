@@ -16,7 +16,9 @@
                         <h5>ORDER <span class="text-primary font-weight-bold">#Y34XDHR</span></h5>
                     </div>
                     <div class="d-flex flex-column text-sm-right">
-                        <p class="mb-0">Expected Arrival <span>01/12/19</span></p>
+                        <p class="mb-0">Packed on <span>{{y.created_on}}</span></p>
+                        <p class="mb-0">Best before {{y.edible}} hours from packed time</p>
+                        <p>Time: <span id="datetime"></span></p>
                         <p>USPS <span class="font-weight-bold">234094567242423422898</span></p>
                     </div>
                 </div> <!-- Add class 'active' to progress -->
@@ -55,11 +57,13 @@
                     <a href="/Donate/feedback/{{i.id}}">
                         <button>Feedback</button>
                     </a>
-                    {% endfor %}
-                    
+                    {% endfor %}                    
                 </div>
             </div>
-    
         </div>
+        <script>
+            var dt = new Date();
+            document.getElementById("datetime").innerHTML = dt.toLocaleTimeString();
+        </script>
     </body>
 </html>
