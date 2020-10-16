@@ -51,9 +51,15 @@
                             <p class="font-weight-bold">Order<br>Arrived</p>
                         </div>
                     </div>
+                    {% for i in y %}
+                    <a href="/Donate/feedback/{{i.id}}">
+                        <button>Feedback</button>
+                    </a>
+                    {% endfor %}
+                    
                 </div>
             </div>
-            <a href="/Donate/loginpage">GO back Simon</a>
+    
         </div>
     </body>
 </html>

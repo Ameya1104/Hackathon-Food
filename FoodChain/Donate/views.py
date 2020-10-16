@@ -5,8 +5,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from NGO.models import Belongs,foodAvbl,otherDetails,Cities
 from NGO.forms import Registerdetail,otherDetails,foodAvbl
-from .forms import FoodRequest
-from .models import FoodReq
+from .forms import FoodRequest,Rate
+from .models import FoodReq,rate
 from django.core.mail import send_mail
 
 
@@ -17,6 +17,15 @@ def Email(username,email):
         from_email = "samvegvshah13@gmail.com",
         recipient_list = [email],
         fail_silently = False,
+    )
+def send(username,email,quantity):
+    send_mail(
+        subject = "alert",
+        message = f'thanks {username} for the food you provided. {quantity} number of people have been fed !',
+        from_email = "samvegvshah13@gmail.com",
+        recipient_list = [email],
+        fail_silently = False,
+
     )
 
 def index(request):
@@ -81,6 +90,7 @@ def loginpage(request):
                 for d in details:
                     s=Cities.objects.get(pk=d[0])
                 j=foodAvbl.objects.filter(city=s)
+                c=foodAvbl.objects.get(city=s)
                 parameter={'j':j}
                 messages.success(request,"Successfully Logged in")
                 return render(request,'Donate/loginpage.html',parameter)
@@ -134,9 +144,39 @@ def status(request,id):
                 h.quantity=u
                 h.save()
                 messages.success(request,"Response Noted")
-                y=foodAvbl.objects.filter(id=id)  
-                return render(request,"Donate/status.html",{'y':y})   
+                y=foodAvbl.objects.filter(id=id) 
+                print("==============")
+                print(y)
+                parameter={'y':y}
+                return render(request,"Donate/status.html",parameter)   
         else:
             messages.success(request,"Form invalid")
             return render(request,"/Donate/thankyou.html")
     return render(request,"Donate/status.html")
+
+def feedback(request,id):
+    if(request.method=="POST"):
+        print("Hi")
+        print("%%%%%%%%%%")
+        y=foodAvbl.objects.get(id=id)
+        email=y.user.email
+        form= Rate(request.POST ,request.FILES)
+        if form.is_valid():
+                object = form.save(commit=False)
+                quantity= form.instance.fedto
+                object.user=y.user
+                object.save()
+                send(y.user.username,email,quantity)
+                return HttpResponse("Well Done !")
+        else:
+            return HttpResponse("Bad Work")
+
+        
+    
+    else:
+        form = Rate()
+        y=foodAvbl.objects.filter(id=id) 
+        return render(request,"Donate/rate.html",{'form':form,'y':y})
+
+    
+ 

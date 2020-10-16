@@ -24,6 +24,7 @@ urlpatterns = [
     path('',views.index,name="index"),
     path('signup',views.signup,name="signup"),
     path('login',views.login_u,name="login_u"),
+    path('feedback/<int:id>',views.feedback,name="feedback"),
     path('logout',views.logout_u,name="logout_u"),
     path('loginpage',views.loginpage,name="loginpage"),
     path('loginpage/<int:id>',views.displaypage,name="displaypage"),
