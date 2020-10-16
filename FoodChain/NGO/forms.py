@@ -19,4 +19,4 @@ class Food(forms.ModelForm):
     )
         model=foodAvbl
         fields = "__all__"
-        exclude = ('user','otherDetails','city',)
+        exclude = ('user','otherDetails','city','created_on',)

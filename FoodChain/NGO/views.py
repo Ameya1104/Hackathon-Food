@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib.auth import authenticate, login, logout
 from .models import Belongs, foodAvbl, otherDetails
 from django.core.mail import send_mail
+from django.utils import timezone
 
 
 def index(request):
@@ -103,14 +104,17 @@ def check_user(user):
 
 @login_required
 def availability(request):
-    m = otherDetails.objects.get(user=request.user)
     if request.method == "POST":
+        m = otherDetails.objects.get(user=request.user)
         form = Food(request.POST, request.FILES)
-        print(m.city)
+        s=str(m.city)
         if form.is_valid():
             object = form.save(commit=False)
             object.user = request.user
-            object.city = m.city
+            object.save()
+            object.city = s
+            object.save()
+            object.created_on=timezone.now()
             object.save()
             messages.success(request, "Thankyou for the food alert")
             return redirect("/NGO/loginpage")
