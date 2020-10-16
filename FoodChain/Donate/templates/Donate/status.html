@@ -16,8 +16,8 @@
                         <h5>ORDER <span class="text-primary font-weight-bold">#Y34XDHR</span></h5>
                     </div>
                     <div class="d-flex flex-column text-sm-right">
-                        <p class="mb-0">Packed on <span>{{y.created_on}}</span></p>
-                        <p class="mb-0">Best before {{y.edible}} hours from packed time</p>
+                        <p class="mb-0">Packed on <span>{{y1.created_on}}</span></p>
+                        <p class="mb-0">Best before {{y1.edible}} hours from packed time</p>
                         <p>Time: <span id="datetime"></span></p>
                         <p>USPS <span class="font-weight-bold">234094567242423422898</span></p>
                     </div>
@@ -26,7 +26,7 @@
                     <div class="col-12">
                         <ul id="progressbar" class="text-center">
                             <li class="active step0"></li>
-                            <li class="active step0"></li>
+                            <li class="step0"><button id="myBtn">View Pick Address</button></li>
                             <li class="step0"></li>
                             <li class="step0"></li>
                         </ul>
@@ -40,17 +40,17 @@
                     </div>
                     <div class="row d-flex icon-content"> <img class="icon" src="https://i.imgur.com/u1AzR7w.png">
                         <div class="d-flex flex-column">
-                            <p class="font-weight-bold">Order<br>Shipped</p>
+                            <p class="font-weight-bold">Order<br>Confirmed</p>
                         </div>
                     </div>
                     <div class="row d-flex icon-content"> <img class="icon" src="https://i.imgur.com/TkPm63y.png">
                         <div class="d-flex flex-column">
-                            <p class="font-weight-bold">Order<br>En Route</p>
+                            <p class="font-weight-bold">Order<br>Picked</p>
                         </div>
                     </div>
                     <div class="row d-flex icon-content"> <img class="icon" src="https://i.imgur.com/HdsziHP.png">
                         <div class="d-flex flex-column">
-                            <p class="font-weight-bold">Order<br>Arrived</p>
+                            <p class="font-weight-bold">Order<br>Completed</p>
                         </div>
                     </div>
                     {% for i in y %}
@@ -60,10 +60,46 @@
                     {% endfor %}                    
                 </div>
             </div>
+            <a href="/Donate/loginpage">GO back</a>
         </div>
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <p>Address: {{y1.pickup_address}}</p>
+              <button>Confirm Pickup?</button>
+            </div>
+          
+          </div>
         <script>
             var dt = new Date();
             document.getElementById("datetime").innerHTML = dt.toLocaleTimeString();
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("myBtn");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks the button, open the modal 
+            btn.onclick = function() {
+            modal.style.display = "block";
+            }
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+            modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+            }
         </script>
     </body>
 </html>

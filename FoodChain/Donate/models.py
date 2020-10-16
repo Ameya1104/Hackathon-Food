@@ -13,3 +13,9 @@ class rate(models.Model):
     user = models.ForeignKey(User,related_name="foods11",related_query_name="foods11",blank=True,on_delete=models.CASCADE)
     fedto=models.IntegerField(default=0)
     ratings=models.PositiveIntegerField(default=1,validators=[MinValueValidator(1), MaxValueValidator(5)])
+
+class orders(models.Model):
+    user = models.ForeignKey(User, related_name="foodss", related_query_name="foodss", null=True, blank=True,
+                             on_delete=models.CASCADE)
+    quantity=models.IntegerField(default=0)
+    pickup_address = models.TextField(max_length=20)

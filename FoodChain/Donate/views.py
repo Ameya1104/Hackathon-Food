@@ -90,7 +90,6 @@ def loginpage(request):
                 for d in details:
                     s=Cities.objects.get(pk=d[0])
                 j=foodAvbl.objects.filter(city=s)
-                c=foodAvbl.objects.get(city=s)
                 parameter={'j':j}
                 messages.success(request,"Successfully Logged in")
                 return render(request,'Donate/loginpage.html',parameter)
@@ -144,10 +143,11 @@ def status(request,id):
                 h.quantity=u
                 h.save()
                 messages.success(request,"Response Noted")
-                y=foodAvbl.objects.filter(id=id) 
+                y=foodAvbl.objects.filter(id=id)
+                y1=foodAvbl.objects.get(id=id) 
                 print("==============")
                 print(y)
-                parameter={'y':y}
+                parameter={'y':y,'y1':y1}
                 return render(request,"Donate/status.html",parameter)   
         else:
             messages.success(request,"Form invalid")
@@ -162,12 +162,12 @@ def feedback(request,id):
         email=y.user.email
         form= Rate(request.POST ,request.FILES)
         if form.is_valid():
-                object = form.save(commit=False)
-                quantity= form.instance.fedto
-                object.user=y.user
-                object.save()
-                send(y.user.username,email,quantity)
-                return HttpResponse("Well Done !")
+            object = form.save(commit=False)
+            quantity= form.instance.fedto
+            object.user=y.user
+            object.save()
+            send(y.user.username,email,quantity)
+            return HttpResponse("Well Done !")
         else:
             return HttpResponse("Bad Work")
 
