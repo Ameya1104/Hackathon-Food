@@ -52,9 +52,6 @@ def signup(request):
         if(len(username)<2 or len(username)>20):
             messages.error(request,"Username doesnt match the requirements")
             return redirect('signup')
-        if not username.isalnum():
-            messages.error(request,"Username must be alphanumeric")
-            return redirect('signup')
         if(password!=password1):
             messages.error(request,"Both passwords dont match")
             return redirect('signup')
