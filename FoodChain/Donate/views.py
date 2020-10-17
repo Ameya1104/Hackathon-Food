@@ -95,7 +95,9 @@ def loginpage(request):
                 for d in details:
                     s=Cities.objects.get(pk=d[0])
                 j=foodAvbl.objects.filter(city=s)
-                parameter={'j':j}
+                h=orders.objects.all()
+                print(h)
+                parameter={'j':j,'h':h}
                 messages.success(request,"Successfully Logged in")
                 return render(request,'Donate/loginpage.html',parameter)
             else:
@@ -140,7 +142,7 @@ def status1(request,id):
             return render(request,'Donate/thankyou.html',{'form':form,'y':y})
         elif(int(form['quantity_required'].value())<int(y[0][0])):
             if form.is_valid():    
-                a=orders(O_ID=id,user=h.user,quantity=int(form['quantity_required'].value()),pickup_address=h.pickup_address)
+                a=orders(O_ID=id,user=h.user,quantity=int(form['quantity_required'].value()),pickup_address=h.pickup_address,s=1)
                 a.save()
                 print(a)
                 object = form.save(commit=False)
@@ -159,8 +161,12 @@ def status1(request,id):
                 return render(request,"Donate/status1.html",parameter)   
         else:
             messages.success(request,"Form invalid")
-            return render(request,"/Donate/thankyou.html")    
-    return render(request,"Donate/status1.html")
+            return render(request,"/Donate/thankyou.html")
+    else:
+        y=foodAvbl.objects.filter(id=id)
+        y1=foodAvbl.objects.get(id=id) 
+        parameter={'y':y,'y1':y1}   
+        return render(request,"Donate/status1.html", parameter)
 
 # def feedback(request,id):
 #     if(request.method=="POST"):
@@ -191,7 +197,10 @@ def status2(request,id):
     if(request.method=="POST"):
         email=y1.user.email
         username=request.user
-        mailtoo(email,username)        
+        mailtoo(email,username) 
+        a=orders.objects.get(O_ID=id)    
+        a.s=2
+        a.save()
         return render(request,"Donate/status2.html",parameter)
     else:
         return render(request,"Donate/status2.html",parameter)
@@ -201,6 +210,9 @@ def status3(request,id):
     y1=foodAvbl.objects.get(id=id) 
     parameter={'y':y,'y1':y1}
     if(request.method=="POST"):       
+        a=orders.objects.get(O_ID=id)     
+        a.s=3
+        a.save()
         return render(request,"Donate/status3.html",parameter)
     return render(request,"Donate/status3.html",parameter)
     
@@ -216,6 +228,9 @@ def status4(request,id):
             quantity= form.instance.fedto
             object.user=y1.user
             object.save()
+            a=orders.objects.get(O_ID=id)     
+            a.s=4
+            a.save()
             send(y1.user.username,email,quantity)
             messages.success(request,"You have completed the campaign. GOOD WORK!")
             return render(request,"Donate/status4.html",parameter)
