@@ -63,6 +63,10 @@
             <div class="modal-content">
               <span class="close">&times;</span>
               <p>Address: {{y1.pickup_address}}</p>
+              <iframe width="950" height="350" frameborder="0" style="border:0"
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDwAWk8Y85qDH2EraVeowW-KM8q-6Id1D4
+                 &q={{y1.pickup_address}}" allowfullscreen>
+                </iframe>
               {% for i in y %}
                 <form action="/Donate/loginpage/{{y.0.id}}/status/2" method="POST">{% csrf_token %}
                     <button type="submit">Confirm Pickup</button>
