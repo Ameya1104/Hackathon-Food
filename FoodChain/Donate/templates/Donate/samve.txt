@@ -56,285 +56,74 @@
   }); 
 </script>
 </body>
-</html>s
+</html>
 
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<!-- Mirrored from trax.acrothemes.com/blog-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 15 Oct 2020 04:17:45 GMT -->
-<head>
-  {% load static %}
+  <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Trax | Blog</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/all.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/animate.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/owl.carousel.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/jquery.fancybox.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/tooltipster.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/cubeportfolio.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/revolution/navigation.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/revolution/settings.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'NGO/css/style.css' %}">
-</head>
-<body>
-<!--PreLoader-->
-<div class="loader">
-    <div class="loader-inner">
-        <div class="cssload-loader"></div>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>NGO</title>
+  </head>
+  <body>
+{% if messages %}
+    <div id="message"  class="alert-dismissible fade show alert alert-success" role="alert">
+      <ul  id="inner-message" class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
     </div>
+{% endif %}
+<h1>SUCCESSFULLL !!</h1>
+<a href="/Donate/logout"><button>Logout</button></a>{% csrf_token %}
+{% for i in j %}
+<div class="card" style="width: 18rem;">
+  <img style="height:130px;" src="{{i.images}}">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{i.user}}</li>
+    <li class="list-group-item">{{i.measurement}}--{{i.quantity}}</li>
+    <li class="list-group-item">{{i.city}}</li>
+    <li class="list-group-item">{{i.pickup_address}}</li>
+    <a href="/Donate/loginpage/{{i.id}}">
+      <button type="button" class="btn btn-primary btn-lg">Click here to pick food</button>
+    </a>
+  </ul>
 </div>
-<!--PreLoader Ends-->
-<!-- header -->
-<header class="site-header">
-    <nav class="navbar navbar-expand-lg padding-nav static-nav">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">
-              <img class="" style="margin-left:2px;height:40px; width:200px;" src="{% static 'frontpage/images/Logonav.jpeg' %}"  alt="home banner">
-            </a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ml-auto mr-auto">
-                    <li class="nav-item dropdown static">
-                        <a class="nav-link dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Home </a>
-                        
-                    </li>
-                    
-                    <li class="nav-item dropdown static">
-                        <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Status </a>
-                        
-                    </li>
-                    <li class="nav-item dropdown position-relative">
-                        <a class="nav-link dropdown-toggle active" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Past Orders </a>
-                        
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Donate/logout">LogOut</a>{% csrf_token %}
-                    </li>
-                  
-                </ul>
-            </div>
-            
-        </div>
-        <!--side menu open button-->
-        
-    </nav>
-    <!-- side menu -->
-    
-            
-              
-</header>
-<!-- header -->
-<!--Page Header-->
-<section id="main-banner-page" class="position-relative page-header blog-header parallax section-nav-smooth">
-    <div class="overlay overlay-dark opacity-7 z-index-1"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 offset-lg-2">
-                <div class="page-titles whitecolor text-center padding_top padding_bottom">
-                    <h2 class="font-xlight">Welcome</h2>
-                    <h2 class="font-bold">{{user.username}}</h2>
-                    <h2 class="font-xlight">To Your Profile</h2>
-                    <h3 class="font-light pt-2">Lets take how much we require !</h3>
-                </div>
-            </div>
-        </div>
-        <div class="gradient-bg title-wrap">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 whitecolor">
-                    <h3 class="float-left">{{user.username}}</h3>
-                    <ul class="breadcrumb top10 bottom10 float-right">
-                        <li class="breadcrumb-item hover-light"><a href="index.html">{{user.username}}</a></li>
-                        <li class="breadcrumb-item hover-light">{{user.username}}</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!--Page Header ends -->
-<!-- Our Blogs -->
-<section id="our-blog" class="bglight padding">
-    <div class="container">
-        <div id="blog-measonry" class="cbp">
-            <div class="cbp-item">
-                <div class="news_item shadow text-center text-md-left">
-                    <a class="image" href="blog-detail.html">
-                        <img src="images/blog-measonry1.jpg" alt="Latest News" class="img-responsive">
-                    </a>
-                    <div class="news_desc">
-                        <h3 class="text-capitalize font-normal darkcolor"><a href="blog-detail.html">28 Ways to Boost Your Content Confidence</a></h3>
-                        <ul class="meta-tags top20 bottom20">
-                            <li><a href="#."><i class="fas fa-calendar-alt"></i>Feb 14</a></li>
-                            <li><a href="#."> <i class="far fa-user"></i> Peter </a></li>
-                            <li><a href="#."><i class="far fa-comment-dots"></i>8</a></li>
-                        </ul>
-                        <p class="bottom35">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-                        <a href="blog-detail.html" class="button gradient-btn">Read more</a>
-                    </div>
-                </div>
-            </div>
-            <div class="cbp-item">
-                <div class="news_item shadow text-center text-md-left">
-                    <a class="image" href="blog-detail.html">
-                        <img src="" alt="Latest News" class="img-responsive">
-                    </a>
-                    <div class="news_desc">
-                        <h3 class="text-capitalize font-normal darkcolor"><a href="blog-detail.html">Next Large Social Network</a></h3>
-                        <ul class="meta-tags top20 bottom20">
-                            <li><a href="#."><i class="fas fa-calendar-alt"></i>Sep 16</a></li>
-                            <li><a href="#."> <i class="far fa-user"></i> John </a></li>
-                            <li><a href="#."><i class="far fa-comment-dots"></i>17 </a></li>
-                        </ul>
-                        <p class="bottom35">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                        <a href="blog-detail.html" class="button gradient-btn">Read more</a>
-                    </div>
-                </div>
-            </div>
-            <div class="cbp-item">
-                <div class="news_item shadow text-center text-md-left">
-                    <a class="image" href="blog-detail.html">
-                        <img src="images/blog-measonry3.jpg" alt="Latest News" class="img-responsive">
-                    </a>
-                    <div class="news_desc">
-                        <h3 class="text-capitalize font-normal darkcolor"><a href="blog-detail.html">Smart Choices that Lead to Success</a></h3>
-                        <ul class="meta-tags top20 bottom20">
-                            <li><a href="#."><i class="fas fa-calendar-alt"></i>Jan 13</a></li>
-                            <li><a href="#."> <i class="far fa-user"></i> David </a></li>
-                            <li><a href="#."><i class="far fa-comment-dots"></i>8 </a></li>
-                        </ul>
-                        <p class="bottom35">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry</p>
-                        <a href="blog-detail.html" class="button gradient-btn">Read more</a>
-                    </div>
-                </div>
-            </div>
-            <div class="cbp-item">
-                <div class="news_item shadow text-center text-md-left">
-                    <a class="image" href="blog-detail.html">
-                        <img src="images/blog-measonry5.jpg" alt="Latest News" class="img-responsive">
-                    </a>
-                    <div class="news_desc">
-                        <h3 class="text-capitalize font-normal darkcolor"><a href="blog-detail.html">5 Practical Time Management Tips</a></h3>
-                        <ul class="meta-tags top20 bottom20">
-                            <li><a href="#."><i class="fas fa-calendar-alt"></i>Apr 14</a></li>
-                            <li><a href="#."> <i class="far fa-user"></i> Harry </a></li>
-                            <li><a href="#."><i class="far fa-comment-dots"></i>6 </a></li>
-                        </ul>
-                        <p class="bottom35">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley.</p>
-                        <a href="blog-detail.html" class="button gradient-btn">Read more</a>
-                    </div>
-                </div>
-            </div>
-            
+<br>
+<br>  
 
-        </div>
-        
-    </div>
-</section>
-<!--Our Blogs Ends-->
-<!-- Contact US -->
+{% endfor %}
+{% for i in h %}
+<ul>
+  <li>USERNAME : {{i.user}}</li>
+  <li>ID : {{i.O_ID}}</li>
+  <li>Amount of food: {{i.quantity}}</li>
+  <li>Pick Up Address: {{i.pickup_address}}</li>
+  {% if i.s == 1 %}
+  <button><a href="{% url 'status1' i.O_ID %}">View Status</a></button>  
+  {% elif i.s == 2 %}
+  <button><a href="{% url 'status2' i.O_ID %}">View Status</a></button>  
+  {% elif i.s == 3 %}
+  <button><a href="{% url 'status3' i.O_ID %}">View Status</a></button>  
+  {% else %}
+  <button><a href="{% url 'status4' i.O_ID %}">View Status</a></button>
+  {% endif %}
+</ul>
+{% endfor %}
 
-<!-- Contact US ends -->
-<!--Site Footer Here-->
-<footer id="site-footer" class=" bgdark padding_top">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="footer_panel padding_bottom_half bottom20">
-                    <a href="index.html" class="footer_logo bottom25"><img src="images/logo-transparent.png" alt="MegaOne"></a>
-                    <p class="whitecolor bottom25">Keep away from people who try to belittle your ambitions Small people always do that but the really great Friendly.</p>
-                    <div class="d-table w-100 address-item whitecolor bottom25">
-                        <span class="d-table-cell align-middle"><i class="fas fa-mobile-alt"></i></span>
-                        <p class="d-table-cell align-middle bottom0">
-                            +01 - 123 - 4567 <a class="d-block" href="mailto:web@support.com">web@support.com</a>
-                        </p>
-                    </div>
-                    <ul class="social-icons white wow fadeInUp" data-wow-delay="300ms">
-                        <li><a href="javascript:void(0)" class="facebook"><i class="fab fa-facebook-f"></i> </a> </li>
-                        <li><a href="javascript:void(0)" class="twitter"><i class="fab fa-twitter"></i> </a> </li>
-                        <li><a href="javascript:void(0)" class="linkedin"><i class="fab fa-linkedin-in"></i> </a> </li>
-                        <li><a href="javascript:void(0)" class="insta"><i class="fab fa-instagram"></i> </a> </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="footer_panel padding_bottom_half bottom20">
-                    <h3 class="whitecolor bottom25">Latest News</h3>
-                    <ul class="latest_news whitecolor">
-                        <li> <a href="#.">Aenean tristique justo et... </a> <span class="date defaultcolor">15 March 2019</span> </li>
-                        <li> <a href="#.">Phasellus dapibus dictum augue... </a> <span class="date defaultcolor">15 March 2019</span> </li>
-                        <li> <a href="#.">Mauris blandit vitae. Praesent non... </a> <span class="date defaultcolor">15 March 2019</span> </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="footer_panel padding_bottom_half bottom20 pl-0 pl-lg-5">
-                    <h3 class="whitecolor bottom25">Our Services</h3>
-                    <ul class="links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="blog-1.html">Latest News</a></li>
-                        <li><a href="pricing.html">Business Planning</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="faq.html">Faq's</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="footer_panel padding_bottom_half bottom20">
-                    <h3 class="whitecolor bottom25">Business hours</h3>
-                    <p class="whitecolor bottom25">Our support available to help you 24 hours a day, seven days week</p>
-                    <ul class="hours_links whitecolor">
-                        <li><span>Monday-Saturday:</span> <span>8.00-18.00</span></li>
-                        <li><span>Friday:</span> <span>09:00-21:00</span></li>
-                        <li><span>Sunday:</span> <span>09:00-20:00</span></li>
-                        <li><span>Calendar Events:</span> <span>24-Hour Shift</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-<!--Footer ends-->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="{% static 'NGO/js/jquery-3.4.1.min.js' %}"></script>
-<!--Bootstrap Core-->
-<script src="{% static 'NGO/js/propper.min.js' %}"></script>
-<script src="{% static 'NGO/js/bootstrap.min.js' %}"></script>
-<!--to view items on reach-->
-<script src="{% static 'NGO/js/jquery.appear.js' %}"></script>
-<!--Owl Slider-->
-<script src="{% static 'NGO/js/owl.carousel.min.js' %}"></script>
-<!--number counters-->
-<script src="{% static 'NGO/js/jquery-countTo.js'  %}"></script>
-<!--Parallax Background-->
-<script src="{% static 'NGO/js/parallaxie.js'  %}"></script>
-<!--Cubefolio Gallery-->
-<script src="{% static 'NGO/js/jquery.cubeportfolio.min.js' %}"></script>
-<!--Fancybox js-->
-<script src="{% static 'NGO/js/jquery.fancybox.min.js' %}"></script>
-<!--tooltip js-->
-<script src="{% static 'NGO/js/tooltipster.min.js' %}"></script>
-<!--wow js-->
-<script src="{% static 'NGO/js/wow.js' %}"></script>
-<!--Revolution SLider-->
-<script src="{% static 'NGO/js/revolution/jquery.themepunch.tools.min.js' %}"></script>
-<script src="{% static 'NGO/js/revolution/jquery.themepunch.revolution.min.js' %}"></script>
-<!-- SLIDER REVOLUTION 5.0 EXTENSIONS -->
-<script src="{% static 'NGO/js/revolution/extensions/revolution.extension.actions.min.js' %}"></script>
-<script src="{% static 'NGO/js/extensions/revolution.extension.carousel.min.js' %}"></script>
-<script src="{% static 'NGO/js/revolution/extensions/revolution.extension.kenburn.min.js'%}"></script>
-<script src="{% static 'NGO/js/revolution/extensions/revolution.extension.layeranimation.min.js' %} %}"></script>
-<script src="{% static 'NGO/js/revolution/extensions/revolution.extension.migration.min.js' %}"></script>
-<script src="{% static 'NGO/js/revolution/extensions/revolution.extension.navigation.min.js' %}"></script>
-<script src="{% static 'NGO/js/revolution/extensions/revolution.extension.parallax.min.js' %}"></script>
-<script src="{% static 'NGO/js/revolution/extensions/revolution.extension.slideanims.min.js' %}"></script>
-<script src="{% static 'NGO/js/revolution/extensions/revolution.extension.video.min.js' %}"></script>
-<!--custom functions and script-->
-<script src="{% static 'NGO/js/functions.js' %}"></script>
+<script>
+  $(document).ready(function(){
+    window.setTimeout(function() {
+      $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove();
+      });
+    }, 5000);
+  }); 
+</script>
 </body>
-
-<!-- Mirrored from trax.acrothemes.com/blog-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 15 Oct 2020 04:17:46 GMT -->
 </html>

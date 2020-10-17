@@ -30,5 +30,5 @@ urlpatterns = [
     path('loginpage/<int:id>/status/1',views.status1,name="status1"),
     path('loginpage/<int:id>/status/2',views.status2,name="status2"),
     path('loginpage/<int:id>/status/3',views.status3,name="status3"), 
-    path('loginpage/<int:id>/status/4',views.status4,name="status4")    
+    path('loginpage/<int:id>/status/4',views.status4,name="status4")   
 ]
