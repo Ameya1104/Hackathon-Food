@@ -6,7 +6,7 @@ from bootstrap_datepicker_plus import DateTimePickerInput
 from .forms import Registerdetail, Food
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib.auth import authenticate, login, logout
-from .models import Belongs, foodAvbl, otherDetails,TypeOf,Cities,Measurement
+from .models import Belongs, foodAvbl, otherDetails,TypeOf,Cities,Measurement,History
 from django.core.mail import send_mail
 from django.utils import timezone
 
@@ -122,3 +122,11 @@ def availability(request):
             return redirect("/NGO/loginpage")
     else:
         return redirect("/NGO/loginpage")
+
+def alerts(request):
+    if(History.objects.filter(user=request.user) is not None ):
+        j = History.objects.filter(user=request.user)
+        parameter={'j':j}
+        return render(request, 'NGO/alert.html',parameter)
+    else:
+        return HttpResponse("No alerts till date")

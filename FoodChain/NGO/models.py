@@ -54,3 +54,18 @@ class foodAvbl(models.Model):
 
     def __str__(self):
         return str(self.user.username)
+class History(models.Model):
+    user = models.ForeignKey(User, related_name="foodsss", related_query_name="foodsss", null=True, blank=True,on_delete=models.CASCADE)
+    otherDetails = models.OneToOneField(otherDetails, null=True, blank=True, on_delete=models.CASCADE)
+    measurement = models.ForeignKey(Measurement, on_delete=models.CASCADE, null=True)
+    typee = models.ForeignKey(TypeOf, on_delete=models.CASCADE, null=True,default="veg")
+    quantity = models.IntegerField()
+    Other_Specifics=models.TextField(max_length=100,default="Punjabi,Chinese,Mexican")
+    images=models.ImageField(upload_to='NGO/images', null=True, blank=True)
+    city = models.CharField(max_length=100, default="enter")
+    pickup_address = models.TextField(max_length=20)
+    created_on=models.DateTimeField(auto_now_add=False , editable=True,null=True)
+    edible = models.IntegerField(default=0)
+
+    def __str__(self):
+        return str(self.user.username)

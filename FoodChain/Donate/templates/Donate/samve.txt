@@ -7,7 +7,8 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>NGO</title>
+
+    <title>Donate</title>
   </head>
   <body>
 {% if messages %}
@@ -16,114 +17,17 @@
         {% for message in messages %}
         <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
-      </ul>
+    </ul>
     </div>
-{% endif %}
+        
+    {% endif %}
 <h1>SUCCESSFULLL !!</h1>
-<a href="/Donate/logout"><button>Logout</button></a>{% csrf_token %}
-{% for i in j %}
-<div class="card" style="width: 18rem;">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">{{i.user}}</li>
-    <li class="list-group-item">{{i.measurement}}--{{i.quantity}}</li>
-    <li class="list-group-item">{{i.city}}</li>
-    <li class="list-group-item">{{i.pickup_address}}</li>
-    <a href="/Donate/loginpage/{{i.id}}">
-      <button type="button" class="btn btn-primary btn-lg">Click here to pick food</button>
-    </a>
-  </ul>
-</div>
-<br>
-<br>  
+<a href="/NGO/logout"><button>Logout</button></a>{% csrf_token %}
+<p>Hi</p>
+<form action="/NGO/availability" method="post">{% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 
-{% endfor %}
-{% for i in h %}
-<ul>
-  <li>USERNAME : {{i.user}}</li>
-  <li>ID : {{i.O_ID}}</li>
-  <li>Amount of food: {{i.quantity}}</li>
-  <li>Pick Up Address: {{i.pickup_address}}</li>
-</ul>
-{% endfor %}
-
-<script>
-  $(document).ready(function(){
-    window.setTimeout(function() {
-      $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
-          $(this).remove();
-      });
-    }, 5000);
-  }); 
-</script>
-</body>
-</html>
-
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>NGO</title>
-  </head>
-  <body>
-{% if messages %}
-    <div id="message"  class="alert-dismissible fade show alert alert-success" role="alert">
-      <ul  id="inner-message" class="messages">
-        {% for message in messages %}
-        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-{% endif %}
-<h1>SUCCESSFULLL !!</h1>
-<a href="/Donate/logout"><button>Logout</button></a>{% csrf_token %}
-{% for i in j %}
-<div class="card" style="width: 18rem;">
-  <img style="height:130px;" src="{{i.images}}">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">{{i.user}}</li>
-    <li class="list-group-item">{{i.measurement}}--{{i.quantity}}</li>
-    <li class="list-group-item">{{i.city}}</li>
-    <li class="list-group-item">{{i.pickup_address}}</li>
-    <a href="/Donate/loginpage/{{i.id}}">
-      <button type="button" class="btn btn-primary btn-lg">Click here to pick food</button>
-    </a>
-  </ul>
-</div>
-<br>
-<br>  
-
-{% endfor %}
-{% for i in h %}
-<ul>
-  <li>USERNAME : {{i.user}}</li>
-  <li>ID : {{i.O_ID}}</li>
-  <li>Amount of food: {{i.quantity}}</li>
-  <li>Pick Up Address: {{i.pickup_address}}</li>
-  {% if i.s == 1 %}
-  <button><a href="{% url 'status1' i.O_ID %}">View Status</a></button>  
-  {% elif i.s == 2 %}
-  <button><a href="{% url 'status2' i.O_ID %}">View Status</a></button>  
-  {% elif i.s == 3 %}
-  <button><a href="{% url 'status3' i.O_ID %}">View Status</a></button>  
-  {% else %}
-  <button><a href="{% url 'status4' i.O_ID %}">View Status</a></button>
-  {% endif %}
-</ul>
-{% endfor %}
-
-<script>
-  $(document).ready(function(){
-    window.setTimeout(function() {
-      $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
-          $(this).remove();
-      });
-    }, 5000);
-  }); 
-</script>
 </body>
 </html>
