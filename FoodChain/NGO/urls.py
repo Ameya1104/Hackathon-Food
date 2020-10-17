@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 
+
 urlpatterns = [
     path('', views.index, name="index"),
     path('signup', views.signup, name="signup"),
@@ -26,5 +27,4 @@ urlpatterns = [
     path('logout', views.logout_u, name="logout_u"),
     path('loginpage', views.loginpage, name="loginpage"),
     path('availability', views.availability, name="availability")
-
-]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+]

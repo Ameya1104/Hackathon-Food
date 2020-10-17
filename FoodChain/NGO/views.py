@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
-# from bootstrap_datepicker_plus import DateTimePickerInput
+from bootstrap_datepicker_plus import DateTimePickerInput
 from .forms import Registerdetail, Food
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib.auth import authenticate, login, logout
-from .models import Belongs, foodAvbl, otherDetails
+from .models import Belongs, foodAvbl, otherDetails,TypeOf,Cities,Measurement
 from django.core.mail import send_mail
 from django.utils import timezone
 
@@ -110,6 +110,8 @@ def availability(request):
             object.user = request.user
             object.save()
             object.city = s
+            object.save()
+            object.images=m.image
             object.save()
             object.created_on=timezone.now()
             object.save()

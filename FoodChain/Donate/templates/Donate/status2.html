@@ -26,8 +26,8 @@
                     <div class="col-12">
                         <ul id="progressbar" class="text-center">
                             <li class="active step0"></li>
-                            <li class="step0"><button id="myBtn">View Pick Address</button></li>
-                            <li class="step0"></li>
+                            <li class="active step0"></li>
+                            <li class="step0"><button id="myBtn">Picked Order?</button></li>
                             <li class="step0"></li>
                         </ul>
                     </div>
@@ -53,30 +53,26 @@
                             <p class="font-weight-bold">Order<br>Completed</p>
                         </div>
                     </div>
-                    {% for i in y %}
-                    <a href="/Donate/feedback/{{i.id}}">
-                        <button>Feedback</button>
-                    </a>
-                    {% endfor %}                    
+                    <br>                   
                 </div>
             </div>
             <a href="/Donate/loginpage">GO back</a>
         </div>
         <div id="myModal" class="modal">
-
             <!-- Modal content -->
             <div class="modal-content">
               <span class="close">&times;</span>
               <p>Address: {{y1.pickup_address}}</p>
               {% for i in y %}
-                <a href="/Donate/Confirmorder/{{i.id}}">
-                    <button>Confirm Pickup?</button>
+                <a href="/Donate/loginpage/{{i.id}}/status/3">
+                    <button>Yes</button>
                 </a>
-                    {% endfor %}  
-              
+                <a href="/Donate/loginpage/{{i.id}}/status/2">
+                    <button>No</button>
+                </a>
+                    {% endfor %}              
             </div>
-          
-          </div>
+        </div>
         <script>
             var dt = new Date();
             document.getElementById("datetime").innerHTML = dt.toLocaleTimeString();

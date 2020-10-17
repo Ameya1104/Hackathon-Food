@@ -9,7 +9,8 @@
     </div>
         
     {% endif %}
-<form action="/Donate/loginpage/{{y.0.id}}/status" method="POST">{% csrf_token %}
+<form action="/Donate/loginpage/{{y.0.id}}/status/1" method="POST">{% csrf_token %}
     {{form.as_p}}
     <button type="submit">Submit</button>
 </form>
+<a href="/Donate/loginpage">Go back</a>

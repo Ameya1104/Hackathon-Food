@@ -23,6 +23,7 @@
 <a href="/Donate/logout"><button>Logout</button></a>{% csrf_token %}
 {% for i in j %}
 <div class="card" style="width: 18rem;">
+  <img style="height:130px;" src="{{i.images}}">
   <ul class="list-group list-group-flush">
     <li class="list-group-item">{{i.user}}</li>
     <li class="list-group-item">{{i.measurement}}--{{i.quantity}}</li>
@@ -43,6 +44,15 @@
   <li>ID : {{i.O_ID}}</li>
   <li>Amount of food: {{i.quantity}}</li>
   <li>Pick Up Address: {{i.pickup_address}}</li>
+  {% if i.s == 1 %}
+  <button><a href="{% url 'status1' i.O_ID %}">View Status</a></button>  
+  {% elif i.s == 2 %}
+  <button><a href="{% url 'status2' i.O_ID %}">View Status</a></button>  
+  {% elif i.s == 3 %}
+  <button><a href="{% url 'status3' i.O_ID %}">View Status</a></button>  
+  {% else %}
+  <button><a href="{% url 'status4' i.O_ID %}">View Status</a></button>
+  {% endif %}
 </ul>
 {% endfor %}
 
