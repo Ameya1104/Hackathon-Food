@@ -7,7 +7,10 @@ from NGO.models import Belongs,foodAvbl,otherDetails,Cities
 from NGO.forms import Registerdetail,otherDetails,foodAvbl
 from .forms import FoodRequest,Rate
 from .models import FoodReq,rate, orders
+from datetime import timedelta
 from django.core.mail import send_mail
+from django.utils import timezone
+
 
 
 def Email(username,email):
@@ -85,6 +88,7 @@ def logout_u(request):
 def loginpage(request):
     if request.method=="POST":
         #s=foodAvbl.objects.get(city=request.user.city)
+        now = timezone.now()
         loginusername=request.POST.get('loginusername')
         loginpassword=request.POST.get('loginpassword')
         user=authenticate(username=loginusername,password=loginpassword)
@@ -95,6 +99,11 @@ def loginpage(request):
                 for d in details:
                     s=Cities.objects.get(pk=d[0])
                 j=foodAvbl.objects.filter(city=s)
+                for i in j:
+                    if i.created_on != None:
+                        i.created_on += timedelta(hours=i.edible)
+                        if now>i.created_on:
+                            i.delete()
                 h=orders.objects.all()
                 print(h)
                 parameter={'j':j,'h':h}
@@ -114,6 +123,12 @@ def loginpage(request):
         j=foodAvbl.objects.filter(city=s)
         h=orders.objects.all()
         print(h)
+        now = timezone.now()
+        for i in j:
+                    if i.created_on != None:
+                        i.created_on += timedelta(hours=i.edible)
+                        if now>i.created_on:
+                            i.delete()
         parameter={'j':j,'h':h}
         messages.success(request,"Successfully Logged in")
         return render(request,'Donate/loginpage.html',parameter)
