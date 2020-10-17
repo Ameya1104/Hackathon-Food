@@ -101,7 +101,10 @@ def loginpage(request):
                 j=foodAvbl.objects.filter(city=s)
                 for i in j:
                     if i.created_on != None:
+                        i.created_on -= timedelta(hours=6)
+                        i.created_on.update()
                         i.created_on += timedelta(hours=i.edible)
+                        print(i.created_on)
                         if now>i.created_on:
                             i.delete()
                 h=orders.objects.all()
