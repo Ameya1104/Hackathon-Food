@@ -6,7 +6,7 @@ from Donate.models import FoodReq
 class AvblSerializer(serializers.ModelSerializer):
     class Meta:
         model = foodAvbl
-        fields = ()
+        fields = ('id', 'quantity', 'Other_Specifics', 'city', 'pickup_address', 'created_on', 'edible', 'user', 'measurement')
 
 
 class ReqSerializer(serializers.ModelSerializer):
